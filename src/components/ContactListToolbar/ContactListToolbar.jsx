@@ -24,6 +24,9 @@ const ContactListToolbar = () => {
       >
         <i class="fa-solid fa-ellipsis-vertical"></i>
       </div>
+      <button><i class="fa-solid fa-user-plus"></i></button>
+      <button><i class="fa-solid fa-trash"></i></button>
+      
     </div>
   );
 };

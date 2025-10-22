@@ -51,3 +51,38 @@
 .itemMenu:hover {
     background-color: #5088b82a;
 }
+
+.toolbar button{
+    display: none;
+}
+
+@media (min-width: 480px) {
+    .toolbar{
+        justify-content: start;
+    }
+    .actionMenuButton{
+        display: none;
+    }
+    .itemsMenu{
+        display: none;
+    }
+    .toolbar button{
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        margin-right: 10px;
+        background-color: #6088b8;
+        color: #f0f0f0;
+        cursor: pointer;
+        transition: .2s;
+    }
+
+    .toolbar button:hover{
+        transform: scale(1.1);
+        background-color: #6088b8e8;
+    }
+}
