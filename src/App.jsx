@@ -1,9 +1,9 @@
-import ContactListPage from "./pages/ContactListPage/ContactListPage"
+import AddContactPage from "./pages/AddContactPage/AddContactPage"
 
 const App = () => {
   return (
     <>
-      <ContactListPage />
+      <AddContactPage />
     </>
   )
 }
