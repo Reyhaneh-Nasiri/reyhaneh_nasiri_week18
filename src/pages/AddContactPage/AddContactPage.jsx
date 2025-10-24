@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "./AddContactPage.module.css";
-const AddContactPage = ({setCurrentPage}) => {
+const AddContactPage = ({ setCurrentPage, setContacts }) => {
   const [isFocus, setIsFocus] = useState(false);
   const [formValues, setFormValues] = useState({
     name: "",
@@ -9,6 +9,7 @@ const AddContactPage = ({setCurrentPage}) => {
     job: "",
   });
   const [formErrors, setFormErrors] = useState({});
+  const [isSave, setIsSave] = useState(false);
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
@@ -16,8 +17,8 @@ const AddContactPage = ({setCurrentPage}) => {
   };
 
   const saveHandler = () => {
-    console.log(formValues);
     setFormErrors(validate(formValues));
+    setIsSave(true)
   };
 
   const focusHandler = () => {
@@ -36,9 +37,10 @@ const AddContactPage = ({setCurrentPage}) => {
   };
 
   useEffect(() => {
-    console.log(formErrors);
-    if (Object.keys(formErrors).length === 0) {
-      console.log(formValues);
+    if (Object.keys(formErrors).length === 0 && isSave) {
+    const id = Date.now();
+      setContacts((contacts) => [...contacts, { id: id, ...formValues }]);
+      setCurrentPage("contact-list");
     }
   }, [formErrors]);
 
@@ -52,7 +54,7 @@ const AddContactPage = ({setCurrentPage}) => {
       errors.email = "Email is required";
     } else if (!regex.test(values.email)) {
       errors.email = "Invalid email";
-    }
+    } 
     return errors;
   };
   return (
@@ -124,7 +126,12 @@ const AddContactPage = ({setCurrentPage}) => {
           </div>
         </div>
         <div className={styles.form__buttons}>
-          <button className={styles.form__button} onClick={() => setCurrentPage("contact-list")}>Cancel</button>
+          <button
+            className={styles.form__button}
+            onClick={() => setCurrentPage("contact-list")}
+          >
+            Cancel
+          </button>
           <button className={styles.form__button} onClick={saveHandler}>
             Save
           </button>

@@ -33,7 +33,7 @@ const App = () => {
         <ContactListPage setCurrentPage={setCurrentPage} contacts={contacts} />
       )}
       {currentPage === "add-contact" && (
-        <AddContactPage setCurrentPage={setCurrentPage} />
+        <AddContactPage setCurrentPage={setCurrentPage} setContacts={setContacts} />
       )}
     </>
   );
