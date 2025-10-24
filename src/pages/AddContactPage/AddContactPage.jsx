@@ -22,6 +22,17 @@ const AddContactPage = () => {
     setIsFocus(true);
   };
 
+  const blurHandler = () => {
+    if (
+      !formValues.name &&
+      !formValues.email &&
+      !formValues.phone &&
+      !formValues.job
+    ) {
+      setIsFocus(false);
+    }
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.form}>
@@ -36,6 +47,7 @@ const AddContactPage = () => {
               type="text"
               name="name"
               onFocus={focusHandler}
+              onBlur={blurHandler}
               value={formValues.name}
               onChange={changeHandler}
             />
@@ -50,6 +62,7 @@ const AddContactPage = () => {
               type="text"
               name="email"
               onFocus={focusHandler}
+              onBlur={blurHandler}
               value={formValues.email}
               onChange={changeHandler}
             />
@@ -64,6 +77,7 @@ const AddContactPage = () => {
               type="text"
               name="phone"
               onFocus={focusHandler}
+              onBlur={blurHandler}
               value={formValues.phone}
               onChange={changeHandler}
             />
@@ -78,6 +92,7 @@ const AddContactPage = () => {
               type="text"
               name="job"
               onFocus={focusHandler}
+              onBlur={blurHandler}
               value={formValues.job}
               onChange={changeHandler}
             />
@@ -86,7 +101,9 @@ const AddContactPage = () => {
         </div>
         <div className={styles.form__buttons}>
           <button className={styles.form__button}>Cancel</button>
-          <button className={styles.form__button} onClick={saveHandler}>Save</button>
+          <button className={styles.form__button} onClick={saveHandler}>
+            Save
+          </button>
         </div>
       </div>
     </div>
