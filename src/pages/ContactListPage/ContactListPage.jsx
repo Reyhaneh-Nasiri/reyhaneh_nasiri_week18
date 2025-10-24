@@ -1,10 +1,10 @@
 import SearchBox from "@/components/SearchBox/SearchBox";
 import styles from "./ContactListPage.module.css";
 import ContactListToolbar from "@/components/ContactListToolbar/ContactListToolbar";
-const ContactListPage = () => {
+const ContactListPage = ({setCurrentPage}) => {
   return (
     <>
-      <ContactListToolbar />
+      <ContactListToolbar setCurrentPage={setCurrentPage} />
       <SearchBox />
       <ul className={styles.contacts}>
         <li className={styles.contact}>

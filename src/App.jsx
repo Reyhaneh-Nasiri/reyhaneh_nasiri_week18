@@ -6,8 +6,8 @@ const App = () => {
   const [currentPage, setCurrentPage] = useState("contact-list");
   return (
     <>
-      {currentPage === "contact-list" && <ContactListPage />}
-      {currentPage === "add-contact" && <AddContactPage />}
+      {currentPage === "contact-list" && <ContactListPage setCurrentPage={setCurrentPage} />}
+      {currentPage === "add-contact" && <AddContactPage setCurrentPage={setCurrentPage} />}
     </>
   )
 }

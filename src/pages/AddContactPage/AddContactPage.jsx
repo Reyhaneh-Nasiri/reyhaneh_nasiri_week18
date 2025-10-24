@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "./AddContactPage.module.css";
-const AddContactPage = () => {
+const AddContactPage = ({setCurrentPage}) => {
   const [isFocus, setIsFocus] = useState(false);
   const [formValues, setFormValues] = useState({
     name: "",
@@ -124,7 +124,7 @@ const AddContactPage = () => {
           </div>
         </div>
         <div className={styles.form__buttons}>
-          <button className={styles.form__button}>Cancel</button>
+          <button className={styles.form__button} onClick={() => setCurrentPage("contact-list")}>Cancel</button>
           <button className={styles.form__button} onClick={saveHandler}>
             Save
           </button>

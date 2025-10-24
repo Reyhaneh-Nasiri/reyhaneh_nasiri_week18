@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styles from "./ContactListToolbar.module.css";
-const ContactListToolbar = () => {
+const ContactListToolbar = ({setCurrentPage}) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   return (
     <div className={styles.toolbar}>
@@ -11,7 +11,7 @@ const ContactListToolbar = () => {
           transform: `translateY(${isMenuOpen ? "0%" : "50%"})`,
         }}
       >
-        <p className={styles.itemMenu}>
+        <p className={styles.itemMenu} onClick={() => setCurrentPage("add-contact")}>
           <i class="fa-solid fa-plus"></i> New contact
         </p>
         <p className={styles.itemMenu}>
@@ -24,7 +24,7 @@ const ContactListToolbar = () => {
       >
         <i class="fa-solid fa-ellipsis-vertical"></i>
       </div>
-      <button><i class="fa-solid fa-user-plus"></i></button>
+      <button onClick={() => setCurrentPage("add-contact")}><i class="fa-solid fa-user-plus"></i></button>
       <button><i class="fa-solid fa-trash"></i></button>
       
     </div>
