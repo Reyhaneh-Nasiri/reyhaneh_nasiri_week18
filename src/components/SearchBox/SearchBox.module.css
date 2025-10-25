@@ -28,3 +28,14 @@
     color: #5088b8;
     font-size: 1rem;
 }
+
+.searchBox .clearButton{
+    font-size: .7rem;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.searchBox .clearButton:hover{
+    transform: scale(1.2);
+    color: #5088b8c4;
+}

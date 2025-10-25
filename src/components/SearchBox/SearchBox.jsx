@@ -10,6 +10,7 @@ const SearchBox = ({ setSearch }) => {
         placeholder="Search contacts..."
         onChange={(e) => setSearch(e.target.value)}
       />
+      <i className={`${styles.clearButton} fa-solid fa-x`}></i>
     </div>
   );
 };
