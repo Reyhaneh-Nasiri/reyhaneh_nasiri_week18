@@ -9,6 +9,7 @@ const App = () => {
     JSON.parse(localStorage.getItem("contacts") || "[]")
   );
   const [toast, setToast] = useState(null);
+  const [search, setSearch] = useState("");
 
   const showToast = (message, type) => {
     setToast({ message, type });
@@ -32,7 +33,12 @@ const App = () => {
       )}
 
       {currentPage === "contact-list" && (
-        <ContactListPage setCurrentPage={setCurrentPage} contacts={contacts} />
+        <ContactListPage
+          setCurrentPage={setCurrentPage}
+          contacts={contacts}
+          setSearch={setSearch}
+          search={search}
+        />
       )}
       {currentPage === "add-contact" && (
         <AddContactPage
