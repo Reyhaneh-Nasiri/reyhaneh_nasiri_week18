@@ -1,5 +1,5 @@
 import styles from "./SearchBox.module.css";
-const SearchBox = ({ setSearch }) => {
+const SearchBox = ({ setSearch, search }) => {
   return (
     <div className={styles.searchBox}>
       <button>
@@ -10,7 +10,7 @@ const SearchBox = ({ setSearch }) => {
         placeholder="Search contacts..."
         onChange={(e) => setSearch(e.target.value)}
       />
-      <i className={`${styles.clearButton} fa-solid fa-x`}></i>
+      {search && <i className={`${styles.clearButton} fa-solid fa-x`}></i>}
     </div>
   );
 };

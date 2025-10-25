@@ -5,7 +5,7 @@ const ContactListPage = ({ setCurrentPage, contacts, setSearch, search }) => {
   return (
     <>
       <ContactListToolbar setCurrentPage={setCurrentPage} />
-      <SearchBox setSearch={setSearch} />
+      <SearchBox setSearch={setSearch} search={search} />
       <ul className={styles.contacts}>
         {contacts
           .filter((item) => {
