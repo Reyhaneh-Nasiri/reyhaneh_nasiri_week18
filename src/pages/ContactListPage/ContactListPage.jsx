@@ -8,7 +8,7 @@ const ContactListPage = ({
   setContacts,
   setSearch,
   search,
-  showToast
+  showToast,
 }) => {
   const [selectedItems, setSelectedItems] = useState([]);
 
@@ -23,8 +23,12 @@ const ContactListPage = ({
   };
 
   const deleteHandler = () => {
+    if (!selectedItems.length) {
+      showToast("No contact selected", "warning");
+      return;
+    }
     setContacts(contacts.filter((item) => !selectedItems.includes(item.id)));
-    showToast(`${selectedItems.length} contact(s) deleted`, "success")
+    showToast(`${selectedItems.length} contact(s) deleted`, "success");
     setSelectedItems([]);
   };
   return (
