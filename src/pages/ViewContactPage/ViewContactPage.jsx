@@ -1,18 +1,32 @@
 import styles from "./ViewContactPage.module.css";
-const ViewContactPage = ({ id, contacts, setCurrentPage, setContacts, showToast }) => {
-  const contact = contacts.find(contact => contact.id == id);
+const ViewContactPage = ({
+  id,
+  contacts,
+  setCurrentPage,
+  setContacts,
+  showToast,
+  setEditId,
+}) => {
+  const contact = contacts.find((contact) => contact.id == id);
 
   const deleteHandler = () => {
-    setContacts(contacts.filter(contact => contact.id != id))
+    setContacts(contacts.filter((contact) => contact.id != id));
     setCurrentPage("contact-list");
-    showToast("Contact deleted", "success")
-
-  }
+    showToast("Contact deleted", "success");
+  };
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <i onClick={() => setCurrentPage("contact-list")} className="fa-solid fa-arrow-left"></i>
-        <i class="fa-solid fa-pen-to-square" onClick={() => setCurrentPage("edit-contact")}></i>
+        <i
+          onClick={() => setCurrentPage("contact-list")}
+          className="fa-solid fa-arrow-left"
+        ></i>
+        <i
+          class="fa-solid fa-pen-to-square"
+          onClick={() => {
+            setCurrentPage("edit-contact"), setEditId(id);
+          }}
+        ></i>
       </div>
       <ul className={styles.information}>
         <li>Name: {contact.name}</li>

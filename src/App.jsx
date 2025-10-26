@@ -9,6 +9,7 @@ import EditContactPage from "./pages/EditContactPage/EditContactPage";
 const App = () => {
   const [currentPage, setCurrentPage] = useState("contact-list");
   const [viewId, setViewId] = useState(null);
+  const [editId, setEditId] = useState(null);
   const [contacts, setContacts] = useState(
     JSON.parse(localStorage.getItem("contacts") || "[]")
   );
@@ -85,9 +86,18 @@ const App = () => {
           setCurrentPage={setCurrentPage}
           setContacts={setContacts}
           showToast={showToast}
+          setEditId={setEditId}
         />
       )}
-      {currentPage === "edit-contact" && <EditContactPage setCurrentPage={setCurrentPage} />}
+      {currentPage === "edit-contact" && (
+        <EditContactPage
+          setCurrentPage={setCurrentPage}
+          contacts={contacts}
+          editId={editId}
+          setContacts={setContacts}
+          showToast={showToast}
+        />
+      )}
     </>
   );
 };
