@@ -7,7 +7,7 @@ import ViewContactPage from "./pages/ViewContactPage/ViewContactPage";
 import EditContactPage from "./pages/EditContactPage/EditContactPage";
 
 const App = () => {
-  const [currentPage, setCurrentPage] = useState("edit-contact");
+  const [currentPage, setCurrentPage] = useState("contact-list");
   const [viewId, setViewId] = useState(null);
   const [contacts, setContacts] = useState(
     JSON.parse(localStorage.getItem("contacts") || "[]")

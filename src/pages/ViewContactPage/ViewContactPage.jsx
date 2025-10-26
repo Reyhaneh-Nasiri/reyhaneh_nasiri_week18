@@ -12,7 +12,7 @@ const ViewContactPage = ({ id, contacts, setCurrentPage, setContacts, showToast 
     <div className={styles.container}>
       <div className={styles.header}>
         <i onClick={() => setCurrentPage("contact-list")} className="fa-solid fa-arrow-left"></i>
-        <i class="fa-solid fa-pen-to-square"></i>
+        <i class="fa-solid fa-pen-to-square" onClick={() => setCurrentPage("edit-contact")}></i>
       </div>
       <ul className={styles.information}>
         <li>Name: {contact.name}</li>
