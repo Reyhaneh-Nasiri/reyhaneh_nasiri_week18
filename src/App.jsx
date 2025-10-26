@@ -4,10 +4,12 @@ import AddContactPage from "./pages/AddContactPage/AddContactPage";
 import ToastMessage from "./components/ToastMessage/ToastMessage";
 import Modal from "./components/Modal/Modal";
 import ViewContactPage from "./pages/ViewContactPage/ViewContactPage";
+import EditContactPage from "./pages/EditContactPage/EditContactPage";
 
 const App = () => {
   const [currentPage, setCurrentPage] = useState("contact-list");
   const [viewId, setViewId] = useState(null);
+  const [editId, setEditId] = useState(null);
   const [contacts, setContacts] = useState(
     JSON.parse(localStorage.getItem("contacts") || "[]")
   );
@@ -77,7 +79,25 @@ const App = () => {
         />
       )}
 
-      {currentPage === "view-contact" && <ViewContactPage id={viewId} contacts={contacts} setCurrentPage={setCurrentPage} setContacts={setContacts} showToast={showToast}  />}
+      {currentPage === "view-contact" && (
+        <ViewContactPage
+          id={viewId}
+          contacts={contacts}
+          setCurrentPage={setCurrentPage}
+          setContacts={setContacts}
+          showToast={showToast}
+          setEditId={setEditId}
+        />
+      )}
+      {currentPage === "edit-contact" && (
+        <EditContactPage
+          setCurrentPage={setCurrentPage}
+          contacts={contacts}
+          editId={editId}
+          setContacts={setContacts}
+          showToast={showToast}
+        />
+      )}
     </>
   );
 };
