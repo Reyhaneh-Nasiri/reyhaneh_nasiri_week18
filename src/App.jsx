@@ -3,9 +3,10 @@ import ContactListPage from "./pages/ContactListPage/ContactListPage";
 import AddContactPage from "./pages/AddContactPage/AddContactPage";
 import ToastMessage from "./components/ToastMessage/ToastMessage";
 import Modal from "./components/Modal/Modal";
+import ViewContactPage from "./pages/ViewContactPage/ViewContactPage";
 
 const App = () => {
-  const [currentPage, setCurrentPage] = useState("contact-list");
+  const [currentPage, setCurrentPage] = useState("view-contact");
   const [contacts, setContacts] = useState(
     JSON.parse(localStorage.getItem("contacts") || "[]")
   );
@@ -62,6 +63,11 @@ const App = () => {
           setContacts={setContacts}
           showToast={showToast}
         />
+      )}
+
+      
+      {currentPage === "view-contact" && (
+        <ViewContactPage />
       )}
     </>
   );
