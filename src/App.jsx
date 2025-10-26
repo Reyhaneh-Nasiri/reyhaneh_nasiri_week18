@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import ContactListPage from "./pages/ContactListPage/ContactListPage";
 import AddContactPage from "./pages/AddContactPage/AddContactPage";
 import ToastMessage from "./components/ToastMessage/ToastMessage";
+import Modal from "./components/Modal/Modal";
 
 const App = () => {
   const [currentPage, setCurrentPage] = useState("contact-list");
@@ -24,6 +25,7 @@ const App = () => {
   }, [contacts]);
   return (
     <>
+      <Modal />
       {toast && (
         <ToastMessage
           message={toast.message}
@@ -31,7 +33,6 @@ const App = () => {
           onClose={removeToast}
         />
       )}
-
       {currentPage === "contact-list" && (
         <ContactListPage
           setCurrentPage={setCurrentPage}
