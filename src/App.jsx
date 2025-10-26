@@ -26,12 +26,16 @@ const App = () => {
     setModal({title, desc, action})
   }
 
+  const removeModal = () => {
+    setModal(null);
+  }
+
   useEffect(() => {
     localStorage.setItem("contacts", JSON.stringify(contacts));
   }, [contacts]);
   return (
     <>
-      {modal && <Modal title={modal.title} desc={modal.desc} action={modal.action} />}
+      {modal && <Modal title={modal.title} desc={modal.desc} action={modal.action} removeModal={removeModal} />}
       {toast && (
         <ToastMessage
           message={toast.message}
