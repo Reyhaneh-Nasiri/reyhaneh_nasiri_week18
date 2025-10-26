@@ -1,5 +1,6 @@
 import styles from "./ViewContactPage.module.css";
-const ViewContactPage = () => {
+const ViewContactPage = ({ id, contacts }) => {
+  const contact = contacts.find(contact => contact.id == id)
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -7,10 +8,10 @@ const ViewContactPage = () => {
         <i class="fa-solid fa-pen-to-square"></i>
       </div>
       <ul className={styles.information}>
-        <li>Name: contact1</li>
-        <li>Email: contact1@gmail.com</li>
-        <li>Phone: 123</li>
-        <li>Job: Programmer</li>
+        <li>Name: {contact.name}</li>
+        <li>Email: {contact.email}</li>
+        <li>Phone: {contact.phone}</li>
+        <li>Job: {contact.job}</li>
       </ul>
       <div className={styles.footer}>
         <button>Delete</button>
