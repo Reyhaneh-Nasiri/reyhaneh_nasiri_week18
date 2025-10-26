@@ -11,6 +11,7 @@ const ContactListPage = ({
   showToast,
   showModal,
   isOk,
+  onViewClick
 }) => {
   useEffect(() => {
     if (isOk) {
@@ -57,7 +58,7 @@ const ContactListPage = ({
               : item.name.toLowerCase().includes(search);
           })
           .map((contact) => (
-            <li className={styles.contact} key={contact.id}>
+            <li className={styles.contact} key={contact.id} onClick={() => onViewClick(contact.id)}>
               <input
                 type="checkbox"
                 value={contact.id}
