@@ -1,3 +1,4 @@
+import { capitalizeFirstLetter } from "@/utils/capitalizeFirstLetter";
 import styles from "./ViewContactPage.module.css";
 const ViewContactPage = ({
   id,
@@ -8,7 +9,7 @@ const ViewContactPage = ({
   setEditId,
 }) => {
   const contact = contacts.find((contact) => contact.id == id);
-
+  const values = Object.keys(contact);
   const deleteHandler = () => {
     setContacts(contacts.filter((contact) => contact.id != id));
     setCurrentPage("contact-list");
@@ -29,10 +30,15 @@ const ViewContactPage = ({
         ></i>
       </div>
       <ul className={styles.information}>
-        <li>Name: {contact.name}</li>
-        <li>Email: {contact.email}</li>
-        <li>Phone: {contact.phone}</li>
-        <li>Job: {contact.job}</li>
+        {values.map((value) => {
+          if (value !== "id") {
+            return (
+              <li key={value}>
+                {capitalizeFirstLetter(value)}: {contact[value.toLowerCase()]}
+              </li>
+            );
+          }
+        })}
       </ul>
       <div className={styles.footer}>
         <button onClick={deleteHandler}>Delete</button>
