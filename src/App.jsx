@@ -80,6 +80,7 @@ const App = () => {
           setContacts={setContacts}
           showToast={showToast}
           setEditId={setEditId}
+          showModal={showModal}
         />
       )}
       {currentPage === "edit-contact" && (

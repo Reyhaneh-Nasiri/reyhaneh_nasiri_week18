@@ -7,6 +7,7 @@ const ViewContactPage = ({
   setContacts,
   showToast,
   setEditId,
+  showModal,
 }) => {
   const contact = contacts.find((contact) => contact.id == id);
   const values = Object.keys(contact);
@@ -14,6 +15,15 @@ const ViewContactPage = ({
     setContacts(contacts.filter((contact) => contact.id != id));
     setCurrentPage("contact-list");
     showToast("Contact deleted", "success");
+  };
+
+  const renderModal = () => {
+    showModal(
+      `Delete Contact`,
+      "Are you sure you want to delete this contact?",
+      "Delete",
+      () => deleteHandler()
+    );
   };
   return (
     <div className={styles.container}>
@@ -41,7 +51,7 @@ const ViewContactPage = ({
         })}
       </ul>
       <div className={styles.footer}>
-        <button onClick={deleteHandler}>Delete</button>
+        <button onClick={renderModal}>Delete</button>
       </div>
     </div>
   );
