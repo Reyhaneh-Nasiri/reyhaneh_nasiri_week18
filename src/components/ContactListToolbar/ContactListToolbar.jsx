@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styles from "./ContactListToolbar.module.css";
-const ContactListToolbar = ({setCurrentPage, deleteHandler}) => {
+const ContactListToolbar = ({setCurrentPage, renderModal}) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   return (
     <div className={styles.toolbar}>
@@ -14,7 +14,7 @@ const ContactListToolbar = ({setCurrentPage, deleteHandler}) => {
         <p className={styles.itemMenu} onClick={() => setCurrentPage("add-contact")}>
           <i className="fa-solid fa-plus"></i> New contact
         </p>
-        <p className={styles.itemMenu} onClick={deleteHandler}>
+        <p className={styles.itemMenu} onClick={renderModal}>
           <i className="fa-solid fa-trash"></i> Delete
         </p>
       </div>
@@ -25,7 +25,7 @@ const ContactListToolbar = ({setCurrentPage, deleteHandler}) => {
         <i className="fa-solid fa-ellipsis-vertical"></i>
       </div>
       <button onClick={() => setCurrentPage("add-contact")}><i className="fa-solid fa-user-plus"></i></button>
-      <button onClick={deleteHandler}><i className="fa-solid fa-trash"></i></button>
+      <button onClick={renderModal}><i className="fa-solid fa-trash"></i></button>
       
     </div>
   );

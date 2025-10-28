@@ -5,6 +5,7 @@ import ToastMessage from "./components/ToastMessage/ToastMessage";
 import Modal from "./components/Modal/Modal";
 import ViewContactPage from "./pages/ViewContactPage/ViewContactPage";
 import EditContactPage from "./pages/EditContactPage/EditContactPage";
+import useModal from "./hooks/useModal";
 
 const App = () => {
   const [currentPage, setCurrentPage] = useState("contact-list");
@@ -14,9 +15,7 @@ const App = () => {
     JSON.parse(localStorage.getItem("contacts") || "[]")
   );
   const [toast, setToast] = useState(null);
-  const [modal, setModal] = useState(null);
   const [search, setSearch] = useState("");
-  const [isOk, setIsOk] = useState(false);
 
   const showToast = (message, type) => {
     setToast({ message, type });
@@ -26,17 +25,11 @@ const App = () => {
     setToast(null);
   };
 
-  const showModal = (title, desc, action) => {
-    setModal({ title, desc, action });
-  };
-
-  const removeModal = () => {
-    setModal(null);
-  };
-
   useEffect(() => {
     localStorage.setItem("contacts", JSON.stringify(contacts));
   }, [contacts]);
+
+  const { modal, showModal, removeModal } = useModal();
   return (
     <>
       {modal && (
@@ -45,7 +38,7 @@ const App = () => {
           desc={modal.desc}
           action={modal.action}
           removeModal={removeModal}
-          setIsOk={setIsOk}
+          onConfirm={modal.onConfirm}
         />
       )}
       {toast && (
@@ -64,7 +57,6 @@ const App = () => {
           search={search}
           showToast={showToast}
           showModal={showModal}
-          isOk={isOk}
           onViewClick={(id) => {
             setViewId(id);
             setCurrentPage("view-contact");
