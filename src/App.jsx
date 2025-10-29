@@ -90,6 +90,7 @@ const App = () => {
           editId={editId}
           setContacts={setContacts}
           showToast={showToast}
+          showModal={showModal}
         />
       )}
     </>

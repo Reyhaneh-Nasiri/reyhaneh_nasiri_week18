@@ -6,6 +6,7 @@ const EditContactPage = ({
   contacts,
   setContacts,
   showToast,
+  showModal,
 }) => {
   const contact = contacts.find((contact) => contact.id == editId);
 
@@ -17,6 +18,14 @@ const EditContactPage = ({
     showToast("Contact edited successfully", "success");
   };
 
+  const renderModal = (editedValues) => {
+    showModal(
+      `Edit Contact`,
+      "Are you sure you want to edit this contact?",
+      "Edit",
+      () => editHandler(editedValues)
+    );
+  };
   return (
     <ContactForm
       initialValues={{
@@ -25,7 +34,7 @@ const EditContactPage = ({
         phone: contact.phone,
         job: contact.job,
       }}
-      onSubmit={editHandler}
+      onSubmit={renderModal}
       onCancel={() => setCurrentPage("view-contact")}
       buttonText="Edit"
       title="Edit"
