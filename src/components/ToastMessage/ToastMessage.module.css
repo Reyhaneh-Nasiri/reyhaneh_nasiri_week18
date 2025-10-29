@@ -22,8 +22,8 @@
 .toast {
     position: fixed;
     width: 320px;
-    top: 30px;
-    right: 30px;
+    top: .5rem;
+    right: .5rem;
     z-index: 100;
     display: flex;
     align-items: center;
