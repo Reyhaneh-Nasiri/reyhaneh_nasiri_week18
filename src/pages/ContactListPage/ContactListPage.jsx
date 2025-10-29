@@ -54,7 +54,8 @@ const ContactListPage = ({
           .filter((item) => {
             return search.trim().toLowerCase() === ""
               ? item
-              : item.name.toLowerCase().includes(search);
+              : item.name.toLowerCase().includes(search) ||
+                  item.email.toLowerCase().includes(search);
           })
           .map((contact) => (
             <li className={styles.contact} key={contact.id}>
