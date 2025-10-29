@@ -6,6 +6,7 @@ import Modal from "./components/Modal/Modal";
 import ViewContactPage from "./pages/ViewContactPage/ViewContactPage";
 import EditContactPage from "./pages/EditContactPage/EditContactPage";
 import useModal from "./hooks/useModal";
+import useToast from "./hooks/useToast";
 
 const App = () => {
   const [currentPage, setCurrentPage] = useState("contact-list");
@@ -14,22 +15,13 @@ const App = () => {
   const [contacts, setContacts] = useState(
     JSON.parse(localStorage.getItem("contacts") || "[]")
   );
-  const [toast, setToast] = useState(null);
   const [search, setSearch] = useState("");
-
-  const showToast = (message, type) => {
-    setToast({ message, type });
-  };
-
-  const removeToast = () => {
-    setToast(null);
-  };
-
   useEffect(() => {
     localStorage.setItem("contacts", JSON.stringify(contacts));
   }, [contacts]);
 
   const { modal, showModal, removeModal } = useModal();
+  const {toast, showToast, removeToast} = useToast()
   return (
     <>
       {modal && (
