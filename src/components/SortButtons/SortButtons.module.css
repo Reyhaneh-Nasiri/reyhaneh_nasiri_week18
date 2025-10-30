@@ -14,4 +14,9 @@
     border-radius: 6px;
     cursor: pointer;
     outline: none;
+    transition: .3s;
+}
+
+.sortButtons button:hover{
+    transform: scale(1.05) translateY(-10%);
 }
