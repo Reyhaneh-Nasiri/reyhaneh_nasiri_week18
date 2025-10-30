@@ -54,7 +54,7 @@ const ContactListPage = ({
       <SearchBox setSearch={setSearch} search={search} />
       {contacts.length ? (
         <>
-          <SortButtons />
+          <SortButtons sortBy={sortBy} setSortBy={setSortBy} />
           <ul className={styles.contacts}>
             {contacts
               .filter((item) => {
