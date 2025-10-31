@@ -1,5 +1,5 @@
 import styles from "./FavoritesPage.module.css";
-const FavoritesPage = ({ favorites, setCurrentPage }) => {
+const FavoritesPage = ({ favorites, setCurrentPage, onViewClick }) => {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -16,7 +16,11 @@ const FavoritesPage = ({ favorites, setCurrentPage }) => {
       {favorites.length ? (
         <ul className={styles.contacts}>
           {favorites.map((contact) => (
-            <li className={styles.contact} key={contact.id}>
+            <li
+              className={styles.contact}
+              key={contact.id}
+              onClick={() => onViewClick(contact.id)}
+            >
               <div className={styles.data}>
                 <p className={styles.contact__name}>{contact.name}</p>
                 <p className={styles.contact__email}>{contact.email}</p>

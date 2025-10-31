@@ -7,11 +7,15 @@ const EditContactPage = ({
   setContacts,
   showToast,
   showModal,
+  setFavorites,
 }) => {
   const contact = contacts.find((contact) => contact.id == editId);
 
   const editHandler = (editedValues) => {
     setContacts((prev) =>
+      prev.map((c) => (c.id === contact.id ? { ...c, ...editedValues } : c))
+    );
+    setFavorites((prev) =>
       prev.map((c) => (c.id === contact.id ? { ...c, ...editedValues } : c))
     );
     setCurrentPage("view-contact");

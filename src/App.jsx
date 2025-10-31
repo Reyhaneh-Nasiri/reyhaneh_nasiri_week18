@@ -92,10 +92,18 @@ const App = () => {
           setContacts={setContacts}
           showToast={showToast}
           showModal={showModal}
+          setFavorites={setFavorites}
         />
       )}
       {currentPage === "favorites" && (
-        <FavoritesPage favorites={favorites} setCurrentPage={setCurrentPage} />
+        <FavoritesPage
+          favorites={favorites}
+          setCurrentPage={setCurrentPage}
+          onViewClick={(id) => {
+            setViewId(id);
+            setCurrentPage("view-contact");
+          }}
+        />
       )}
     </>
   );
