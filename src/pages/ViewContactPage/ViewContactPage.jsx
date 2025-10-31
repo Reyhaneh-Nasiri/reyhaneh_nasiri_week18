@@ -1,5 +1,6 @@
 import { capitalizeFirstLetter } from "@/utils/capitalizeFirstLetter";
 import styles from "./ViewContactPage.module.css";
+import { useState } from "react";
 const ViewContactPage = ({
   id,
   contacts,
@@ -9,6 +10,7 @@ const ViewContactPage = ({
   setEditId,
   showModal,
 }) => {
+    const [isFavorite, setIsFavorite] = useState(false)
   const contact = contacts.find((contact) => contact.id == id);
   const values = Object.keys(contact);
   const deleteHandler = () => {
@@ -39,8 +41,8 @@ const ViewContactPage = ({
           }}
         ></i>
       </div>
-      <button className={styles.favorite}>
-        <i className="fa-regular fa-star"></i>
+      <button className={`${styles.favorite} ${isFavorite && styles.active}`} onClick={() => setIsFavorite(!isFavorite)}>
+        {isFavorite ? <i className="fa-solid fa-star"></i>: <i className="fa-regular fa-star"></i>}
       </button>
       <ul className={styles.information}>
         {values.map((value) => {
