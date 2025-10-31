@@ -19,6 +19,7 @@ const ViewContactPage = ({
   const values = Object.keys(contact);
   const deleteHandler = () => {
     setContacts(contacts.filter((contact) => contact.id != id));
+    setFavorites(favorites.filter((f) => f.id != id));
     setCurrentPage("contact-list");
     showToast("Contact deleted", "success");
   };

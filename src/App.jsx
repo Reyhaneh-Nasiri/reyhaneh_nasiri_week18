@@ -13,7 +13,9 @@ const App = () => {
   const [currentPage, setCurrentPage] = useState("contact-list");
   const [viewId, setViewId] = useState(null);
   const [editId, setEditId] = useState(null);
-  const [favorites, setFavorites] = useState(JSON.parse(localStorage.getItem("favorites")) || []);
+  const [favorites, setFavorites] = useState(
+    JSON.parse(localStorage.getItem("favorites")) || []
+  );
   const [contacts, setContacts] = useState(
     JSON.parse(localStorage.getItem("contacts")) || []
   );
@@ -52,6 +54,8 @@ const App = () => {
           search={search}
           showToast={showToast}
           showModal={showModal}
+          favorites={favorites}
+          setFavorites={setFavorites}
           onViewClick={(id) => {
             setViewId(id);
             setCurrentPage("view-contact");

@@ -12,6 +12,8 @@ const ContactListPage = ({
   showToast,
   showModal,
   onViewClick,
+  setFavorites,
+  favorites
 }) => {
   const [selectedItems, setSelectedItems] = useState([]);
   const [sortBy, setSortBy] = useState(localStorage.getItem("sortBy") || "latest-added");
@@ -28,6 +30,7 @@ const ContactListPage = ({
 
   const deleteHandler = () => {
     setContacts(contacts.filter((item) => !selectedItems.includes(item.id)));
+    setFavorites(favorites.filter((item) => !selectedItems.includes(item.id)));
     showToast(`${selectedItems.length} contact(s) deleted`, "success");
     setSelectedItems([]);
   };
