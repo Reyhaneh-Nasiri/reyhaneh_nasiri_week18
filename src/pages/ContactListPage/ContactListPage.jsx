@@ -5,12 +5,12 @@ import { useContext, useEffect, useState } from "react";
 import SortButtons from "@/components/SortButtons/SortButtons";
 import { Link } from "react-router-dom";
 import { ContactsContext } from "@/components/context/ContactsContext";
-import { ModalContext } from "@/components/context/ModalContext";
 import { ToastContext } from "@/components/context/ToastContext";
+import { useModal } from "@/hooks/useModal";
 const ContactListPage = () => {
   const [search, setSearch] = useState("");
 
-  const { showModal } = useContext(ModalContext);
+  const { showModal } = useModal();
   const { showToast } = useContext(ToastContext);
   const { contacts, setContacts, favorites, setFavorites } =
     useContext(ContactsContext);

@@ -1,15 +1,6 @@
-import { useState } from "react";
+import { useContext } from "react";
+import { ModalContext } from "@/components/context/ModalContext";
 
-export default function useModal() {
-  const [modal, setModal] = useState(null);
-
-  const showModal = (title, desc, action, onConfirm) => {
-    setModal({ title, desc, action, onConfirm });
-  };
-
-  const removeModal = () => {
-    setModal(null);
-  };
-
-  return { modal, showModal, removeModal };
+export function useModal() {
+  return useContext(ModalContext);
 }

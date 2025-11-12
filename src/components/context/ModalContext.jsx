@@ -1,11 +1,11 @@
-import useModal from "@/hooks/useModal";
+import useModalLogic from "@/hooks/useModalLogic";
 import Modal from "../Modal/Modal";
 import { createContext } from "react";
 
 export const ModalContext = createContext();
 
 const ModalProvider = ({ children }) => {
-  const { modal, showModal, removeModal } = useModal();
+  const { modal, showModal, removeModal } = useModalLogic();
   return (
     <ModalContext.Provider value={{ showModal }}>
       {modal && (

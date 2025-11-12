@@ -1,12 +1,12 @@
 import ContactForm from "@/components/ContactForm/ContactForm";
 import { ContactsContext } from "@/components/context/ContactsContext";
-import { ModalContext } from "@/components/context/ModalContext";
 import { ToastContext } from "@/components/context/ToastContext";
+import { useModal } from "@/hooks/useModal";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 const AddContactPage = () => {
-  const { showModal } = useContext(ModalContext);
+  const { showModal } = useModal();
   const { showToast } = useContext(ToastContext);
   const { setContacts } = useContext(ContactsContext);
   const navigate = useNavigate();
