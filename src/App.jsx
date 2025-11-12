@@ -1,4 +1,3 @@
-import { useState } from "react";
 import ContactListPage from "./pages/ContactListPage/ContactListPage";
 import AddContactPage from "./pages/AddContactPage/AddContactPage";
 import ViewContactPage from "./pages/ViewContactPage/ViewContactPage";
@@ -10,8 +9,6 @@ import ModalProvider from "./components/context/ModalContext";
 import ToastProvider from "./components/context/ToastContext";
 
 const App = () => {
-  const [search, setSearch] = useState("");
-
   return (
     <>
       <ToastProvider>
@@ -19,12 +16,7 @@ const App = () => {
           <ContactsProvider>
             <Routes>
               <Route path="/" element={<Navigate to="/contact-list" />} />
-              <Route
-                path="/contact-list"
-                element={
-                  <ContactListPage setSearch={setSearch} search={search} />
-                }
-              />
+              <Route path="/contact-list" element={<ContactListPage />} />
               <Route path="/add-contact" element={<AddContactPage />} />
               <Route
                 path="/view-contact/:contactId"

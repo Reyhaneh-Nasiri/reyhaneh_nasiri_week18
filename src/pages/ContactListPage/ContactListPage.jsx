@@ -7,7 +7,9 @@ import { Link } from "react-router-dom";
 import { ContactsContext } from "@/components/context/ContactsContext";
 import { ModalContext } from "@/components/context/ModalContext";
 import { ToastContext } from "@/components/context/ToastContext";
-const ContactListPage = ({ setSearch, search }) => {
+const ContactListPage = () => {
+  const [search, setSearch] = useState("");
+
   const { showModal } = useContext(ModalContext);
   const { showToast } = useContext(ToastContext);
   const { contacts, setContacts, favorites, setFavorites } =
