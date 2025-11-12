@@ -1,11 +1,11 @@
-import useToast from "@/hooks/useToast";
 import { createContext } from "react";
 import ToastMessage from "../ToastMessage/ToastMessage";
+import useToastLogic from "@/hooks/useToastLogic";
 
 export const ToastContext = createContext();
 
 const ToastProvider = ({ children }) => {
-  const { toast, showToast, removeToast } = useToast();
+  const { toast, showToast, removeToast } = useToastLogic();
 
   return (
     <ToastContext.Provider value={{ showToast }}>
