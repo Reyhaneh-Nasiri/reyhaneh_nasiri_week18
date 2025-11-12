@@ -6,7 +6,7 @@ import { ContactsContext } from "@/components/context/ContactsContext";
 import { useModal } from "@/hooks/useModal";
 import { useToast } from "@/hooks/useToast";
 const ViewContactPage = () => {
-  const { showModal } = useModal;
+  const { showModal } = useModal();
   const { showToast } = useToast();
 
   const { contacts, setContacts, favorites, setFavorites } =
