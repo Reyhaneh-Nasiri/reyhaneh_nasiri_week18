@@ -4,9 +4,11 @@ import { useContext, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ContactsContext } from "@/components/context/ContactsContext";
 import { ModalContext } from "@/components/context/ModalContext";
-const ViewContactPage = ({ showToast }) => {
-    const {showModal} = useContext(ModalContext)
-  
+import { ToastContext } from "@/components/context/ToastContext";
+const ViewContactPage = () => {
+  const { showModal } = useContext(ModalContext);
+  const { showToast } = useContext(ToastContext);
+
   const { contacts, setContacts, favorites, setFavorites } =
     useContext(ContactsContext);
 

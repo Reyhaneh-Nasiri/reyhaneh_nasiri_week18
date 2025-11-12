@@ -6,14 +6,12 @@ import SortButtons from "@/components/SortButtons/SortButtons";
 import { Link } from "react-router-dom";
 import { ContactsContext } from "@/components/context/ContactsContext";
 import { ModalContext } from "@/components/context/ModalContext";
-const ContactListPage = ({
-  setSearch,
-  search,
-  showToast,
-  // showModal,
-}) => {
-  const {showModal} = useContext(ModalContext)
-  const { contacts, setContacts ,favorites, setFavorites} = useContext(ContactsContext);
+import { ToastContext } from "@/components/context/ToastContext";
+const ContactListPage = ({ setSearch, search }) => {
+  const { showModal } = useContext(ModalContext);
+  const { showToast } = useContext(ToastContext);
+  const { contacts, setContacts, favorites, setFavorites } =
+    useContext(ContactsContext);
   const [selectedItems, setSelectedItems] = useState([]);
   const [sortBy, setSortBy] = useState(
     localStorage.getItem("sortBy") || "latest-added"
