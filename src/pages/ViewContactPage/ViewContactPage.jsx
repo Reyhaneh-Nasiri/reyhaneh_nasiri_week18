@@ -3,7 +3,10 @@ import styles from "./ViewContactPage.module.css";
 import { useContext, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ContactsContext } from "@/components/context/ContactsContext";
-const ViewContactPage = ({ showToast, showModal }) => {
+import { ModalContext } from "@/components/context/ModalContext";
+const ViewContactPage = ({ showToast }) => {
+    const {showModal} = useContext(ModalContext)
+  
   const { contacts, setContacts, favorites, setFavorites } =
     useContext(ContactsContext);
 
