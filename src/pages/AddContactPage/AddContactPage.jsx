@@ -16,7 +16,7 @@ const AddContactPage = () => {
     try {
       const res = await axios.post(
         "http://localhost:3000/contacts",
-        newContact
+        {...newContact, isFavorite: false}
       );
       setContacts((prev) => [...prev, res.data]);
       navigate("/contact-list");

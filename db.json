@@ -6,6 +6,14 @@
       "email": "contact1@gmail.com",
       "phone": "",
       "job": ""
+    },
+    {
+      "id": "03e7",
+      "name": "6",
+      "email": "6@gmail.com",
+      "phone": "",
+      "job": "",
+      "isFavorite": false
     }
   ]
 }
