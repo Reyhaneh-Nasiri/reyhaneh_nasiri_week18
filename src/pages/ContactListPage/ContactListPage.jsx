@@ -1,26 +1,27 @@
 import SearchBox from "@/components/SearchBox/SearchBox";
 import styles from "./ContactListPage.module.css";
 import ContactListToolbar from "@/components/ContactListToolbar/ContactListToolbar";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import SortButtons from "@/components/SortButtons/SortButtons";
-const ContactListPage = ({
-  setCurrentPage,
-  contacts,
-  setContacts,
-  setSearch,
-  search,
-  showToast,
-  showModal,
-  onViewClick,
-  setFavorites,
-  favorites
-}) => {
+import { Link } from "react-router-dom";
+import { useModal } from "@/hooks/useModal";
+import { useToast } from "@/hooks/useToast";
+import axios from "axios";
+import { useContacts } from "@/hooks/useContacts";
+const ContactListPage = () => {
+  const [search, setSearch] = useState("");
+
+  const { showModal } = useModal();
+  const { showToast } = useToast();
+  const { contacts } = useContacts();
   const [selectedItems, setSelectedItems] = useState([]);
-  const [sortBy, setSortBy] = useState(localStorage.getItem("sortBy") || "latest-added");
+  const [sortBy, setSortBy] = useState(
+    localStorage.getItem("sortBy") || "latest-added"
+  );
 
   const checkboxHandler = (e) => {
     const isSelected = e.target.checked;
-    const value = parseInt(e.target.value);
+    const value = e.target.value;
     if (isSelected) {
       setSelectedItems([...selectedItems, value]);
     } else {
@@ -29,8 +30,11 @@ const ContactListPage = ({
   };
 
   const deleteHandler = () => {
-    setContacts(contacts.filter((item) => !selectedItems.includes(item.id)));
-    setFavorites(favorites.filter((item) => !selectedItems.includes(item.id)));
+    selectedItems.map((id) => {
+      axios
+        .delete(`http://localhost:3000/contacts/${id}`)
+        .then((res) => console.log(res));
+    });
     showToast(`${selectedItems.length} contact(s) deleted`, "success");
     setSelectedItems([]);
   };
@@ -71,15 +75,12 @@ const ContactListPage = ({
   useEffect(() => {
     localStorage.setItem("sortBy", sortBy);
   }, [sortBy]);
-  
+
   return (
     <>
-      <ContactListToolbar
-        setCurrentPage={setCurrentPage}
-        renderModal={renderModal}
-      />
+      <ContactListToolbar renderModal={renderModal} />
       <SearchBox setSearch={setSearch} search={search} />
-      {contacts.length ? (
+      {(contacts.length && sortedContacts.length)  ? (
         <>
           <SortButtons sortBy={sortBy} setSortBy={setSortBy} />
           <ul className={styles.contacts}>
@@ -91,13 +92,13 @@ const ContactListPage = ({
                   checked={selectedItems.includes(contact.id)}
                   onChange={checkboxHandler}
                 />
-                <div
+                <Link
+                  to={`/view-contact/${contact.id}`}
                   className={styles.data}
-                  onClick={() => onViewClick(contact.id)}
                 >
                   <p className={styles.contact__name}>{contact.name}</p>
                   <p className={styles.contact__email}>{contact.email}</p>
-                </div>
+                </Link>
               </li>
             ))}
           </ul>
@@ -109,4 +110,4 @@ const ContactListPage = ({
   );
 };
 
-export default ContactListPage;
+export default memo(ContactListPage);

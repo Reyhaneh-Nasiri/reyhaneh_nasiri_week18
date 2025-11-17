@@ -60,6 +60,10 @@ input {
   color: inherit
 }
 
+#root{
+  height: 100%;
+}
+
 @media (min-width: 480px) {
   html {
     font-size: 16px;

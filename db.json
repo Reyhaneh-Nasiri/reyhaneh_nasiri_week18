@@ -1,0 +1,12 @@
+{
+  "contacts": [
+    {
+      "id": "31f0",
+      "name": "Contact1",
+      "email": "contact1@gmail.com",
+      "phone": "",
+      "job": "",
+      "isFavorite": false
+    }
+  ]
+}

@@ -1,11 +1,18 @@
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./FavoritesPage.module.css";
-const FavoritesPage = ({ favorites, setCurrentPage, onViewClick }) => {
+import { memo } from "react";
+import { useContacts } from "@/hooks/useContacts";
+const FavoritesPage = () => {
+  const { contacts } = useContacts();
+  const navigate = useNavigate();
+
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
         <div>
           <i
-            onClick={() => setCurrentPage("contact-list")}
+            onClick={() => navigate("/contact-list")}
             className="fa-solid fa-arrow-left"
           ></i>
         </div>
@@ -13,19 +20,17 @@ const FavoritesPage = ({ favorites, setCurrentPage, onViewClick }) => {
           <h3>Favorites</h3>
         </div>
       </div>
-      {favorites.length ? (
+      {contacts.find(contact => contact.isFavorite) ? (
         <ul className={styles.contacts}>
-          {favorites.map((contact) => (
-            <li
-              className={styles.contact}
-              key={contact.id}
-              onClick={() => onViewClick(contact.id)}
-            >
-              <div className={styles.data}>
-                <p className={styles.contact__name}>{contact.name}</p>
-                <p className={styles.contact__email}>{contact.email}</p>
-              </div>
-            </li>
+          {contacts.filter(contact => contact.isFavorite).map((contact) => (
+            <Link to={`/view-contact/${contact.id}`} key={contact.id}>
+              <li className={styles.contact}>
+                <div className={styles.data}>
+                  <p className={styles.contact__name}>{contact.name}</p>
+                  <p className={styles.contact__email}>{contact.email}</p>
+                </div>
+              </li>
+            </Link>
           ))}
         </ul>
       ) : (
@@ -35,4 +40,4 @@ const FavoritesPage = ({ favorites, setCurrentPage, onViewClick }) => {
   );
 };
 
-export default FavoritesPage;
+export default memo(FavoritesPage);

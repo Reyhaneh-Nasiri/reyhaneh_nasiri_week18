@@ -1,16 +1,4 @@
-import { useState } from "react";
+import { useContext } from "react";
+import { ToastContext } from "@/components/contexts/ToastContext";
 
-const useToast = () => {
-      const [toast, setToast] = useState(null);
-    
-      const showToast = (message, type) => {
-        setToast({ message, type });
-      };
-    
-      const removeToast = () => {
-        setToast(null);
-      };
-  return {toast, showToast, removeToast}
-}
-
-export default useToast
+export const useToast = () => useContext(ToastContext);

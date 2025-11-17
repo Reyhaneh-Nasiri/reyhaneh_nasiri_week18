@@ -1,27 +1,40 @@
 import { capitalizeFirstLetter } from "@/utils/capitalizeFirstLetter";
 import styles from "./ViewContactPage.module.css";
-import { useState } from "react";
-const ViewContactPage = ({
-  id,
-  contacts,
-  setCurrentPage,
-  setContacts,
-  showToast,
-  setEditId,
-  showModal,
-  setFavorites,
-  favorites,
-}) => {
-  const [isFavorite, setIsFavorite] = useState(
-    favorites.find((contact) => contact.id == id)
-  );
-  const contact = contacts.find((contact) => contact.id == id);
+import { memo, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useModal } from "@/hooks/useModal";
+import { useToast } from "@/hooks/useToast";
+import axios from "axios";
+const ViewContactPage = () => {
+  const { showModal } = useModal();
+  const { showToast } = useToast();
+
+  const { contactId } = useParams();
+  const navigate = useNavigate();
+
+  const [contact, setContact] = useState({});
   const values = Object.keys(contact);
+
+  useEffect(() => {
+    axios(`http://localhost:3000/contacts/${contactId}`).then((res) =>
+      setContact(res.data)
+    );
+  }, []);
   const deleteHandler = () => {
-    setContacts(contacts.filter((contact) => contact.id != id));
-    setFavorites(favorites.filter((f) => f.id != id));
-    setCurrentPage("contact-list");
-    showToast("Contact deleted", "success");
+    const deleteContact = async () => {
+      try {
+        const res = await axios.delete(
+          `http://localhost:3000/contacts/${contactId}`
+        );
+        if (res.status == 200) {
+          navigate("/contact-list");
+          showToast("Contact deleted", "success");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    deleteContact();
   };
 
   const renderModal = () => {
@@ -34,33 +47,31 @@ const ViewContactPage = ({
   };
 
   const favoriteHandler = () => {
-    setIsFavorite(!isFavorite);
-    if (!isFavorite) {
-      setFavorites(() => [...favorites, contact]);
-    } else {
-      setFavorites((prevData) => prevData.filter((c) => c.id !== contact.id));
-    }
+    axios
+      .patch(`http://localhost:3000/contacts/${contactId}`, {
+        isFavorite: !contact.isFavorite,
+      })
+      .then((res) => setContact(res.data))
+      .catch((error) => console.log(error));
   };
 
   return (
     <div className={styles.container}>
       <div className={styles.header}>
         <i
-          onClick={() => setCurrentPage("contact-list")}
+          onClick={() => navigate("/contact-list")}
           className="fa-solid fa-arrow-left"
         ></i>
         <i
           className="fa-solid fa-pen-to-square"
-          onClick={() => {
-            setCurrentPage("edit-contact"), setEditId(id);
-          }}
+          onClick={() => navigate(`/edit-contact/${contactId}`)}
         ></i>
       </div>
       <button
-        className={`${styles.favorite} ${isFavorite && styles.active}`}
+        className={`${styles.favorite} ${contact.isFavorite && styles.active}`}
         onClick={favoriteHandler}
       >
-        {isFavorite ? (
+        {contact.isFavorite ? (
           <i className="fa-solid fa-star"></i>
         ) : (
           <i className="fa-regular fa-star"></i>
@@ -68,7 +79,7 @@ const ViewContactPage = ({
       </button>
       <ul className={styles.information}>
         {values.map((value) => {
-          if (value !== "id") {
+          if (value !== "id" && value !== "isFavorite") {
             return (
               <li key={value}>
                 {capitalizeFirstLetter(value)}: {contact[value.toLowerCase()]}
@@ -84,4 +95,4 @@ const ViewContactPage = ({
   );
 };
 
-export default ViewContactPage;
+export default memo(ViewContactPage);

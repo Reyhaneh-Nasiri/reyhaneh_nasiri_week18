@@ -1,7 +1,9 @@
 import { useState } from "react";
 import styles from "./ContactListToolbar.module.css";
-const ContactListToolbar = ({ setCurrentPage, renderModal }) => {
+import { useNavigate } from "react-router-dom";
+const ContactListToolbar = ({ renderModal }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate()
   return (
     <div className={styles.toolbar}>
       <div
@@ -13,14 +15,14 @@ const ContactListToolbar = ({ setCurrentPage, renderModal }) => {
       >
         <p
           className={styles.itemMenu}
-          onClick={() => setCurrentPage("add-contact")}
+          onClick={() => navigate("/add-contact")}
         >
           <i className="fa-solid fa-plus"></i> New contact
         </p>
         <p className={styles.itemMenu} onClick={renderModal}>
           <i className="fa-solid fa-trash"></i> Delete
         </p>
-        <p className={styles.itemMenu} onClick={() => setCurrentPage("favorites")}>
+        <p className={styles.itemMenu} onClick={() => navigate("/favorites")}>
           <i className="fa-solid fa-star"></i> Favorites
         </p>
       </div>
@@ -30,13 +32,13 @@ const ContactListToolbar = ({ setCurrentPage, renderModal }) => {
       >
         <i className="fa-solid fa-ellipsis-vertical"></i>
       </div>
-      <button onClick={() => setCurrentPage("add-contact")}>
+      <button onClick={() => navigate("/add-contact")}>
         <i className="fa-solid fa-user-plus"></i>
       </button>
       <button onClick={renderModal}>
         <i className="fa-solid fa-trash"></i>
       </button>
-      <button className={styles.favoritesButton} onClick={() => setCurrentPage("favorites")}>
+      <button className={styles.favoritesButton} onClick={() => navigate("/favorites")}>
         <i className="fa-solid fa-star"></i>
       </button>
     </div>
