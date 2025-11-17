@@ -12,7 +12,7 @@ const ContactListPage = () => {
 
   const { showModal } = useModal();
   const { showToast } = useToast();
-  const { contacts, setContacts, favorites, setFavorites } =
+  const { contacts, setContacts} =
     useContext(ContactsContext);
   const [selectedItems, setSelectedItems] = useState([]);
   const [sortBy, setSortBy] = useState(
@@ -31,7 +31,6 @@ const ContactListPage = () => {
 
   const deleteHandler = () => {
     setContacts(contacts.filter((item) => !selectedItems.includes(item.id)));
-    setFavorites(favorites.filter((item) => !selectedItems.includes(item.id)));
     showToast(`${selectedItems.length} contact(s) deleted`, "success");
     setSelectedItems([]);
   };

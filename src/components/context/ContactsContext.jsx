@@ -5,9 +5,6 @@ export const ContactsContext = createContext();
 
 const ContactsProvider = ({ children }) => {
   const [contacts, setContacts] = useState([]);
-  const [favorites, setFavorites] = useState(
-    JSON.parse(localStorage.getItem("favorites")) || []
-  );
 
   useEffect(() => {
     const fetchContacts = async () => {
@@ -15,17 +12,14 @@ const ContactsProvider = ({ children }) => {
         .then((res) => setContacts(res.data));
     };
     fetchContacts();
-    localStorage.setItem("favorites", JSON.stringify(favorites));
-  }, [contacts,favorites]);
+  }, [contacts]);
 
   const value = useMemo(
     () => ({
       contacts,
       setContacts,
-      favorites,
-      setFavorites,
     }),
-    [contacts, favorites]
+    [contacts]
   );
   return (
     <ContactsContext.Provider value={value}>
