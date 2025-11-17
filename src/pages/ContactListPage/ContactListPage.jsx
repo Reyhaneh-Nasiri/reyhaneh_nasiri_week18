@@ -7,13 +7,13 @@ import { Link } from "react-router-dom";
 import { ContactsContext } from "@/components/context/ContactsContext";
 import { useModal } from "@/hooks/useModal";
 import { useToast } from "@/hooks/useToast";
+import axios from "axios";
 const ContactListPage = () => {
   const [search, setSearch] = useState("");
 
   const { showModal } = useModal();
   const { showToast } = useToast();
-  const { contacts, setContacts} =
-    useContext(ContactsContext);
+  const { contacts } = useContext(ContactsContext);
   const [selectedItems, setSelectedItems] = useState([]);
   const [sortBy, setSortBy] = useState(
     localStorage.getItem("sortBy") || "latest-added"
@@ -21,7 +21,7 @@ const ContactListPage = () => {
 
   const checkboxHandler = (e) => {
     const isSelected = e.target.checked;
-    const value = parseInt(e.target.value);
+    const value = e.target.value;
     if (isSelected) {
       setSelectedItems([...selectedItems, value]);
     } else {
@@ -30,7 +30,11 @@ const ContactListPage = () => {
   };
 
   const deleteHandler = () => {
-    setContacts(contacts.filter((item) => !selectedItems.includes(item.id)));
+    selectedItems.map((id) => {
+      axios
+        .delete(`http://localhost:3000/contacts/${id}`)
+        .then((res) => console.log(res));
+    });
     showToast(`${selectedItems.length} contact(s) deleted`, "success");
     setSelectedItems([]);
   };
