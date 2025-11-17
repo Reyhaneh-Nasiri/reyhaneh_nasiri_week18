@@ -3,8 +3,9 @@ import styles from "./FavoritesPage.module.css";
 import { memo, useContext } from "react";
 import { ContactsContext } from "@/components/context/ContactsContext";
 const FavoritesPage = () => {
-  const { favorites } = useContext(ContactsContext);
+  const { contacts } = useContext(ContactsContext);
   const navigate = useNavigate();
+
 
   return (
     <div className={styles.container}>
@@ -19,9 +20,9 @@ const FavoritesPage = () => {
           <h3>Favorites</h3>
         </div>
       </div>
-      {favorites.length ? (
+      {contacts.length ? (
         <ul className={styles.contacts}>
-          {favorites.map((contact) => (
+          {contacts.filter(contact => contact.isFavorite).map((contact) => (
             <Link to={`/view-contact/${contact.id}`} key={contact.id}>
               <li className={styles.contact}>
                 <div className={styles.data}>
