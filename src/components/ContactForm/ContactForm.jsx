@@ -20,6 +20,7 @@ const ContactForm = ({
     (value) => value.trim() !== ""
   );
 
+
   const changeHandler = (e) => {
     const { name, value } = e.target;
     setFormValues((prev) => ({ ...prev, [name]: value }));

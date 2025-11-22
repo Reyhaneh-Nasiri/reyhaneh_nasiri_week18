@@ -4,9 +4,9 @@ import ViewContactPage from "./pages/ViewContactPage/ViewContactPage";
 import EditContactPage from "./pages/EditContactPage/EditContactPage";
 import FavoritesPage from "./pages/FavoritesPage/FavoritesPage";
 import { Navigate, Route, Routes } from "react-router-dom";
-import ContactsProvider from "./components/contexts/ContactsProvider";
-import ModalProvider from "./components/contexts/ModalContext";
-import ToastProvider from "./components/contexts/ToastContext";
+import ContactsProvider from "./contexts/ContactsProvider";
+import ModalProvider from "./contexts/ModalContext";
+import ToastProvider from "./contexts/ToastContext";
 import PageNotFound from "./pages/404/404";
 
 const App = () => {

@@ -1,5 +1,5 @@
 import useModalLogic from "@/hooks/useModalLogic";
-import Modal from "../Modal/Modal";
+import Modal from "../components/Modal/Modal";
 import { createContext } from "react";
 
 export const ModalContext = createContext();

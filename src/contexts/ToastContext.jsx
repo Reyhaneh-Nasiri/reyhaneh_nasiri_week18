@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import ToastMessage from "../ToastMessage/ToastMessage";
+import ToastMessage from "../components/ToastMessage/ToastMessage";
 import useToastLogic from "@/hooks/useToastLogic";
 
 export const ToastContext = createContext();
