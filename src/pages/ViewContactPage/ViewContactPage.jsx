@@ -23,7 +23,7 @@ const ViewContactPage = () => {
   const deleteHandler = () => {
     const deleteContact = async () => {
       try {
-        const res = await axios.delete(import.meta.env.VITE_BASE_URL);
+        const res = await axios.delete(`${import.meta.env.VITE_BASE_URL}${contactId}`);
         if (res.status == 200) {
           navigate("/contact-list");
           showToast("Contact deleted", "success");
