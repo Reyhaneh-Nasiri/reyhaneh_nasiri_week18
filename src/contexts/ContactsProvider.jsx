@@ -12,7 +12,7 @@ const ContactsProvider = ({ children }) => {
       );
     };
     fetchContacts();
-  }, [contacts]);
+  }, []);
 
   const value = useMemo(
     () => ({

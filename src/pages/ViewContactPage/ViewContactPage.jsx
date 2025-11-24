@@ -5,9 +5,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useModal } from "@/hooks/useModal";
 import { useToast } from "@/hooks/useToast";
 import axios from "axios";
+import { useContacts } from "@/hooks/useContacts";
 const ViewContactPage = () => {
   const { showModal } = useModal();
   const { showToast } = useToast();
+  const { setContacts } = useContacts();
 
   const { contactId } = useParams();
   const navigate = useNavigate();
@@ -23,8 +25,13 @@ const ViewContactPage = () => {
   const deleteHandler = () => {
     const deleteContact = async () => {
       try {
-        const res = await axios.delete(`${import.meta.env.VITE_BASE_URL}${contactId}`);
+        const res = await axios.delete(
+          `${import.meta.env.VITE_BASE_URL}${contactId}`
+        );
         if (res.status == 200) {
+          setContacts((contacts) =>
+            contacts.filter((contact) => contact.id !== res.data.id)
+          );
           navigate("/contact-list");
           showToast("Contact deleted", "success");
         }
@@ -49,7 +56,16 @@ const ViewContactPage = () => {
       .patch(`${import.meta.env.VITE_BASE_URL}${contactId}`, {
         isFavorite: !contact.isFavorite,
       })
-      .then((res) => setContact(res.data))
+      .then((res) => {
+        setContact(res.data)
+        setContacts((contacts) =>
+          contacts.map((contact) =>
+            contact.id == contactId
+              ? Object.assign({}, contact, res.data)
+              : contact
+          )
+        );
+      })
       .catch((error) => console.log(error));
   };
 
