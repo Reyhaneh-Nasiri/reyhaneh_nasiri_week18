@@ -13,7 +13,7 @@ const ContactListPage = () => {
 
   const { showModal } = useModal();
   const { showToast } = useToast();
-  const { contacts } = useContacts();
+  const { contacts, setContacts } = useContacts();
   const [selectedItems, setSelectedItems] = useState([]);
   const [sortBy, setSortBy] = useState(
     localStorage.getItem("sortBy") || "latest-added"
@@ -31,9 +31,11 @@ const ContactListPage = () => {
 
   const deleteHandler = () => {
     selectedItems.map((id) => {
-      axios
-        .delete(`${import.meta.env.VITE_BASE_URL}${id}`)
-        .then((res) => console.log(res));
+      axios.delete(`${import.meta.env.VITE_BASE_URL}${id}`).then((res) => {
+        setContacts((contacts) =>
+          contacts.filter((contact) => contact.id !== res.data.id)
+        );
+      });
     });
     showToast(`${selectedItems.length} contact(s) deleted`, "success");
     setSelectedItems([]);

@@ -1,6 +1,10 @@
 import { useState } from "react";
-import styles from "./ContactForm.module.css";
+import { useForm } from "react-hook-form";
+
 import { validationSchema } from "@/utils/validation";
+
+import styles from "./ContactForm.module.css";
+
 const inputs = [
   { id: "name", label: "Name", icon: "fa-user" },
   { id: "email", label: "Email", icon: "fa-envelope" },
@@ -14,21 +18,17 @@ const ContactForm = ({
   buttonText,
   title,
 }) => {
-  const [formValues, setFormValues] = useState(initialValues);
+  const { register, handleSubmit, getValues } = useForm({
+    defaultValues: initialValues,
+  });
+  let [values, setValues] = useState(getValues());
   const [errors, setErrors] = useState({});
 
-  const isActive = Object.values(formValues).some(
-    (value) => value.trim() !== ""
-  );
+  const isActive = Object.values(values).some((value) => value?.trim() !== "");
 
-  const changeHandler = (e) => {
-    const { name, value } = e.target;
-    setFormValues((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const submitHandler = () => {
+  const submitHandler = (data) => {
     validationSchema
-      .validate(formValues, { abortEarly: false })
+      .validate(data, { abortEarly: false })
       .then((valid) => {
         onSubmit(valid);
       })
@@ -41,9 +41,17 @@ const ContactForm = ({
       });
   };
 
+  const changeHandler = () => {
+    setValues(getValues());
+  };
+
   return (
     <div className={styles.container}>
-      <div className={styles.form}>
+      <form
+        className={styles.form}
+        onSubmit={handleSubmit(submitHandler)}
+        onChange={changeHandler}
+      >
         <h3 className={styles.form__title}>{title} Contact</h3>
         <div className={`${styles.form__inputs} ${isActive && styles.active}`}>
           {inputs.map(({ id, label, icon }) => (
@@ -51,13 +59,7 @@ const ContactForm = ({
               <label htmlFor={id} className={styles.form__label}>
                 {label}
               </label>
-              <input
-                id={id}
-                name={id}
-                type="text"
-                value={formValues[id]}
-                onChange={changeHandler}
-              />
+              <input id={id} type="text" {...register(id)} />
               <i className={`fa-solid ${icon}`}></i>
               <p className={styles.form__message}>{errors[id]}</p>
             </div>
@@ -67,11 +69,11 @@ const ContactForm = ({
           <button className={styles.form__button} onClick={onCancel}>
             Cancel
           </button>
-          <button className={styles.form__button} onClick={submitHandler}>
+          <button className={styles.form__button} type="submit">
             {buttonText}
           </button>
         </div>
-      </div>
+      </form>
     </div>
   );
 };

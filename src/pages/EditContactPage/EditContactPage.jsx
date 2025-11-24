@@ -9,7 +9,7 @@ import { useNavigate, useParams } from "react-router-dom";
 const EditContactPage = () => {
   const { showModal } = useModal();
   const { showToast } = useToast();
-  const { contacts } = useContacts();
+  const { contacts, setContacts } = useContacts();
 
   const { contactId } = useParams();
   const navigate = useNavigate();
@@ -19,7 +19,14 @@ const EditContactPage = () => {
   const editHandler = (editedValues) => {
     axios
       .patch(`${import.meta.env.VITE_BASE_URL}${contactId}`, editedValues)
-      .then(() => {
+      .then((res) => {
+        setContacts((contacts) =>
+          contacts.map((contact) =>
+            contact.id == contactId
+              ? Object.assign({}, contact, res.data)
+              : contact
+          )
+        );
         navigate(`/view-contact/${contactId}`);
         showToast("Contact edited successfully", "success");
       })
@@ -37,10 +44,10 @@ const EditContactPage = () => {
   return (
     <ContactForm
       initialValues={{
-        name: contact.name,
-        email: contact.email,
-        phone: contact.phone,
-        job: contact.job,
+        name: contact?.name,
+        email: contact?.email,
+        phone: contact?.phone,
+        job: contact?.job,
       }}
       onSubmit={renderModal}
       onCancel={() => navigate(`/view-contact/${contactId}`)}

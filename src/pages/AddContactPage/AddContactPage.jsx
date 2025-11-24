@@ -1,14 +1,18 @@
-import ContactForm from "@/components/ContactForm/ContactForm";
-import { useModal } from "@/hooks/useModal";
-import { useToast } from "@/hooks/useToast";
 import axios from "axios";
 import { memo } from "react";
 import { useNavigate } from "react-router-dom";
 
+import ContactForm from "@/components/ContactForm/ContactForm";
+import { useContacts } from "@/hooks/useContacts";
+import { useModal } from "@/hooks/useModal";
+import { useToast } from "@/hooks/useToast";
+
 const AddContactPage = () => {
   const { showModal } = useModal();
   const { showToast } = useToast();
+  const {setContacts} = useContacts()
   const navigate = useNavigate();
+
 
   const addHandler = async (newContact) => {
     try {
@@ -16,7 +20,7 @@ const AddContactPage = () => {
         "http://localhost:3000/contacts",
         {...newContact, isFavorite: false}
       );
-      console.log(res)
+      setContacts(contacts => [...contacts, res.data])
       navigate("/contact-list");
       showToast("Contact added successfully", "success");
     } catch (error) {
