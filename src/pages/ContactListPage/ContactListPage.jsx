@@ -8,6 +8,7 @@ import { useModal } from "@/hooks/useModal";
 import { useToast } from "@/hooks/useToast";
 import axios from "axios";
 import { useContacts } from "@/hooks/useContacts";
+import Loader from "@/components/Loader/Loader";
 const ContactListPage = () => {
   const [search, setSearch] = useState("");
 
@@ -86,7 +87,9 @@ const ContactListPage = () => {
     <>
       <ContactListToolbar renderModal={renderModal} />
       <SearchBox setSearch={setSearch} search={search} />
-      {state.contacts.length && sortedContacts.length ? (
+      {state.loading ? (
+        <Loader />
+      ) : state.contacts.length && sortedContacts.length ? (
         <>
           <SortButtons sortBy={sortBy} setSortBy={setSortBy} />
           <ul className={styles.contacts}>

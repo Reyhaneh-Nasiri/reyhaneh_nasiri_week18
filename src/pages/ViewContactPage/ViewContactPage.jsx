@@ -6,10 +6,11 @@ import { useModal } from "@/hooks/useModal";
 import { useToast } from "@/hooks/useToast";
 import axios from "axios";
 import { useContacts } from "@/hooks/useContacts";
+import Loader from "@/components/Loader/Loader";
 const ViewContactPage = () => {
   const { showModal } = useModal();
   const { showToast } = useToast();
-  const { dispatch } = useContacts();
+  const { state, dispatch } = useContacts();
 
   const { contactId } = useParams();
   const navigate = useNavigate();
@@ -18,8 +19,13 @@ const ViewContactPage = () => {
   const values = Object.keys(contact);
 
   useEffect(() => {
-    axios(`${import.meta.env.VITE_BASE_URL}${contactId}`).then((res) =>
+    dispatch({type: "FETCH_START"})
+    axios(`${import.meta.env.VITE_BASE_URL}${contactId}`).then((res) =>{
+    dispatch({type: "FETCH_CONTACT_SUCCESS"})
       setContact(res.data)
+
+    }
+
     );
   }, []);
   const deleteHandler = async () => {
@@ -59,42 +65,49 @@ const ViewContactPage = () => {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.header}>
-        <i
-          onClick={() => navigate("/contact-list")}
-          className="fa-solid fa-arrow-left"
-        ></i>
-        <i
-          className="fa-solid fa-pen-to-square"
-          onClick={() => navigate(`/edit-contact/${contactId}`)}
-        ></i>
-      </div>
-      <button
-        className={`${styles.favorite} ${contact.isFavorite && styles.active}`}
-        onClick={favoriteHandler}
-      >
-        {contact.isFavorite ? (
-          <i className="fa-solid fa-star"></i>
-        ) : (
-          <i className="fa-regular fa-star"></i>
-        )}
-      </button>
-      <ul className={styles.information}>
-        {values.map((value) => {
-          if (value !== "id" && value !== "isFavorite") {
-            return (
-              <li key={value}>
-                {capitalizeFirstLetter(value)}: {contact[value.toLowerCase()]}
-              </li>
-            );
-          }
-        })}
-      </ul>
-      <div className={styles.footer}>
-        <button onClick={renderModal}>Delete</button>
-      </div>
-    </div>
+    <>
+      {state.loading ? <Loader />: (
+        <div className={styles.container}>
+          <div className={styles.header}>
+            <i
+              onClick={() => navigate("/contact-list")}
+              className="fa-solid fa-arrow-left"
+            ></i>
+            <i
+              className="fa-solid fa-pen-to-square"
+              onClick={() => navigate(`/edit-contact/${contactId}`)}
+            ></i>
+          </div>
+          <button
+            className={`${styles.favorite} ${
+              contact.isFavorite && styles.active
+            }`}
+            onClick={favoriteHandler}
+          >
+            {contact.isFavorite ? (
+              <i className="fa-solid fa-star"></i>
+            ) : (
+              <i className="fa-regular fa-star"></i>
+            )}
+          </button>
+          <ul className={styles.information}>
+            {values.map((value) => {
+              if (value !== "id" && value !== "isFavorite") {
+                return (
+                  <li key={value}>
+                    {capitalizeFirstLetter(value)}:{" "}
+                    {contact[value.toLowerCase()]}
+                  </li>
+                );
+              }
+            })}
+          </ul>
+          <div className={styles.footer}>
+            <button onClick={renderModal}>Delete</button>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

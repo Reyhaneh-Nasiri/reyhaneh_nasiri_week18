@@ -2,12 +2,17 @@ import axios from "axios";
 import { useEffect, useMemo, useReducer } from "react";
 import ContactsContext from "./ContactsContext";
 const initialState = {
+  loading: true,
   contacts: [],
 };
 const reducer = (state, action) => {
   switch (action.type) {
+    case "FETCH_START":
+      return { ...state, loading: true };
     case "FETCH_SUCCESS":
-      return { ...state, contacts: action.payload };
+      return { ...state, loading: false, contacts: action.payload };
+    case "FETCH_CONTACT_SUCCESS":
+      return { ...state, loading: false };
     case "ADD_CONTACT_SUCCESS":
       return { ...state, contacts: [...state.contacts, action.payload] };
     case "EDIT_CONTACT_SUCCESS":
@@ -51,6 +56,7 @@ const ContactsProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
+    dispatch({ type: "FETCH_START" });
     const fetchContacts = async () => {
       try {
         const res = await axios(import.meta.env.VITE_BASE_URL);
